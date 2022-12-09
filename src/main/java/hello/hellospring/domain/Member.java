@@ -1,7 +1,7 @@
 package hello.hellospring.domain;
 
-/*
-회원 객체
+/**
+ * 회원 객체
  */
 public class Member {
     private Long id;    //회원 ID - 임의의 값
