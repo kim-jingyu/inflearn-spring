@@ -5,8 +5,8 @@ import hello.hellospring.domain.Member;
 import java.util.List;
 import java.util.Optional;
 
-/*
-회원 리포지토리 인터페이스
+/**
+ * 회원 리포지토리 인터페이스
  */
 public interface MemberRepository {
     Member save(Member member); // 회원을 저장하면 저장된 회원이 반환됨 (회원을 저장소에 저장)
