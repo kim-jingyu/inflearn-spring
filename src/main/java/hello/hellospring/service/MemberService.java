@@ -9,9 +9,10 @@ import java.util.Optional;
 
 /**
  * 회원 서비스. 도메인과 리포지토리를 이용한 비즈니스 처리 로직.
+ * 서비스는 비즈니스 로직 처리를 위한 메소드 네이밍
  */
 public class MemberService {
-//    멤버 리포지토리
+//    회원 리포지토리
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
     /**
@@ -35,5 +36,12 @@ public class MemberService {
      */
     public List<Member> findMembers(){
         return memberRepository.findAll();
+    }
+
+    /**
+     * 회원 한명 조회
+     */
+    public Optional<Member> findOne(Long memberId){
+        return memberRepository.findById(memberId);
     }
 }
