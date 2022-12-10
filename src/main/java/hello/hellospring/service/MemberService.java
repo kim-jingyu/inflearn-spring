@@ -12,8 +12,13 @@ import java.util.Optional;
  * 서비스는 비즈니스 로직 처리를 위한 메소드 네이밍
  */
 public class MemberService {
-//    회원 리포지토리
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    //    회원 리포지토리
+    private final MemberRepository memberRepository;
+
+//    외부에서 memberRepository를 넣어준다. DI
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입
