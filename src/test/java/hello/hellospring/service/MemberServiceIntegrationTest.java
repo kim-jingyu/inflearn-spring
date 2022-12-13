@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //스프링 테스트
 @SpringBootTest
-//@Transactional // 이 어노테이션 덕분에 DB 초기화 과정을 따로 AfterEach로 선언해줄 필요가 없음
+@Transactional // 이 어노테이션 덕분에 DB 초기화 과정을 따로 AfterEach로 선언해줄 필요가 없음
 class MemberServiceIntegrationTest {
 
     /**
