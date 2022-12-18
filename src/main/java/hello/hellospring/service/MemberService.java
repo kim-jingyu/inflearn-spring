@@ -5,6 +5,7 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * 서비스는 비즈니스 로직 처리를 위한 메소드 네이밍
  */
 //@Service
+@Transactional
 public class MemberService {
     //    회원 리포지토리
     private final MemberRepository memberRepository;
@@ -26,6 +28,7 @@ public class MemberService {
 
     /**
      * 회원가입
+     * JPA는 join 들어올때 모든 데이터 변경이 Transactional 안에서 수행되어야 함.
      */
     public Long join(Member member){
         validateDuplicatedMember(member); // 중복 회원 검증
