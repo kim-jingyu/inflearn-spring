@@ -12,10 +12,18 @@ import hello.core.order.OrderServiceImpl;
  */
 public class AppConfig {
 
+    /**
+     * 내가 만든 MemberServiceImpl은 MemoryMemberRepository를 사용할 거라고 주입시켜줌.
+     */
     public MemberService memberService() {
         return new MemberServiceImpl(new MemoryMemberRepository());
     }
 
+    /**
+     * OrderServiceImpl을 생성해서 반환
+     * 생성자로 MemoryMemberRepository와 FixDiscountPolicy를 생성해서 주입함
+     * 즉, OrderServiceImpl 이 객체들을 참조하도록 그림을 완성시키고, 완성된 그림을 반환
+     */
     public OrderService orderService() {
         return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
     }
