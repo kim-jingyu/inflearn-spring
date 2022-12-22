@@ -16,7 +16,14 @@ public class AppConfig {
      * 내가 만든 MemberServiceImpl은 MemoryMemberRepository를 사용할 거라고 주입시켜줌.
      */
     public MemberService memberService() {
-        return new MemberServiceImpl(new MemoryMemberRepository());
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    /**
+     * 역할과 구현 클래스가 한눈에 들어오도록 리팩토링
+     */
+    private MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
     }
 
     /**
@@ -25,7 +32,14 @@ public class AppConfig {
      * 즉, OrderServiceImpl 이 객체들을 참조하도록 그림을 완성시키고, 완성된 그림을 반환
      */
     public OrderService orderService() {
-        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    /**
+     * 역할과 구현 클래스가 한눈에 들어오도록 리팩토링
+     */
+    private FixDiscountPolicy discountPolicy() {
+        return new FixDiscountPolicy();
     }
 
 }
