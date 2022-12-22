@@ -8,15 +8,22 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 애플리케이션 전체 설정 및 구성 (기획자)
+ * 애플리케이션 설정 정보 또는 구성 정보 -> @Configuration
  */
+@Configuration
 public class AppConfig {
 
     /**
      * 내가 만든 MemberServiceImpl은 MemoryMemberRepository를 사용할 거라고 주입시켜줌.
+     * 각 메서드에 @Bean이라고 적어준다.
+     * 그러면 각 메서드들이 스프링 컨테이너라는 곳에 등록이 된다.
      */
+    @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
     }
@@ -24,7 +31,8 @@ public class AppConfig {
     /**
      * 역할과 구현 클래스가 한눈에 들어오도록 리팩토링
      */
-    private MemberRepository memberRepository() {
+    @Bean
+    public MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
 
@@ -33,6 +41,7 @@ public class AppConfig {
      * 생성자로 MemoryMemberRepository와 FixDiscountPolicy를 생성해서 주입함
      * 즉, OrderServiceImpl 이 객체들을 참조하도록 그림을 완성시키고, 완성된 그림을 반환
      */
+    @Bean
     public OrderService orderService() {
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
@@ -40,7 +49,8 @@ public class AppConfig {
     /**
      * 역할과 구현 클래스가 한눈에 들어오도록 리팩토링
      */
-    private DiscountPolicy discountPolicy() {
+    @Bean
+    public DiscountPolicy discountPolicy() {
 //        return new FixDiscountPolicy();
         return new RateDiscountPolicy();
     }
