@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
@@ -43,6 +44,7 @@ class ApplicationContextDuplicatedBeanTest {
         assertThat(beansOfType.size()).isEqualTo(2);
     }
 
+    @Configuration
     static class SameBeanConfig {
         @Bean
         public MemberRepository memberRepository1() {
