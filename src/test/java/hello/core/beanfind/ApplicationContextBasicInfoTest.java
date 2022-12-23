@@ -38,7 +38,7 @@ class ApplicationContextBasicInfoTest {
 
     @Test
     @DisplayName("빈 이름으로 조회 안될때")
-    void findBeanByNameX() {˚
+    void findBeanByNameX() {
         assertThrows(NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("hi", MemberService.class));
     }
