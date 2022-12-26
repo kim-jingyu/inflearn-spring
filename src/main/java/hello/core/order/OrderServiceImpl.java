@@ -14,10 +14,15 @@ public class OrderServiceImpl implements OrderService{
     /**
      * final이 있으면 기본으로 할당을 하던 생성자를 할당을 하던 초기화를 해야함.
      */
-    @Autowired private MemberRepository memberRepository;
-    @Autowired private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
-//    @Autowired(required = false)
+//    @Autowired private MemberRepository memberRepository;
+//    @Autowired private DiscountPolicy discountPolicy;
+
+
+
+    //    @Autowired(required = false)
 //    public void setMemberRepository(MemberRepository memberRepository) {
 //        this.memberRepository = memberRepository;
 //    }
@@ -27,11 +32,11 @@ public class OrderServiceImpl implements OrderService{
 //        this.discountPolicy = discountPolicy;
 //    }
 
-    //    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+        @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
