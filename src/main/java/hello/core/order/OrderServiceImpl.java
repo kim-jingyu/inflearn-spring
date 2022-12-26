@@ -14,8 +14,8 @@ public class OrderServiceImpl implements OrderService{
     /**
      * final이 있으면 기본으로 할당을 하던 생성자를 할당을 하던 초기화를 해야함.
      */
-    private MemberRepository memberRepository;
-    private DiscountPolicy discountPolicy;
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private DiscountPolicy discountPolicy;
 
 //    @Autowired(required = false)
 //    public void setMemberRepository(MemberRepository memberRepository) {
