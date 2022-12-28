@@ -3,6 +3,9 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * NetworkClient는 애플리케이션 시작 시점에 connect()를 호출해서 연결을 맺어두어야 한다.
  * 애플리케이션이 종료되면 disconnect()를 호출해서 연결을 끊어야한다.
@@ -32,12 +35,14 @@ public class NetworkClient{
         System.out.println("disconnect = " + url);
     }
 
+    @PostConstruct
     public void init() {
         System.out.println("NetworkClient.init");
         connect();
         call("콜 메서드가 동작합니다. 초기화 연결 메시지");
     }
 
+    @PreDestroy
     public void close() {
         System.out.println("NetworkClient.close");
         disconnect();
