@@ -46,7 +46,7 @@ public class SingletonWithPrototypeTest1 {
 
         @PostConstruct
         public void init() {
-            System.out.println("Prototype.init");
+            System.out.println("Prototype.init , " + this);
         }
 
         @PreDestroy
