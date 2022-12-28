@@ -12,7 +12,7 @@ public class BeanLifeCycleTest {
     void lifeCycleTest() {
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
         NetworkClient networkClient = ac.getBean(NetworkClient.class);
-        ac.close();
+        ac.close(); // 스프링 컨테이너를 종료, ConfigurableApplicationContext 필요
     }
 
     @Configuration

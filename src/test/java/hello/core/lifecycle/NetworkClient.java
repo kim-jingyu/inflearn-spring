@@ -17,6 +17,7 @@ public class NetworkClient {
         this.url = url;
     }
 
+//    서비스 시작시 호출
     public void connect() {
         System.out.println("connect = " + url);
     }
@@ -25,6 +26,7 @@ public class NetworkClient {
         System.out.println("call = " + url + ", message = " + message);
     }
 
+//    서비스 종료시 호출
     public void disconnect() {
         System.out.println("disconnect = " + url);
     }
