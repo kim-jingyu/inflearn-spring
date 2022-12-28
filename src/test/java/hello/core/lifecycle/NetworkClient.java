@@ -7,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
  * NetworkClient는 애플리케이션 시작 시점에 connect()를 호출해서 연결을 맺어두어야 한다.
  * 애플리케이션이 종료되면 disconnect()를 호출해서 연결을 끊어야한다.
  */
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient{
     private String url;
 
     public NetworkClient() {
@@ -32,16 +32,14 @@ public class NetworkClient implements InitializingBean, DisposableBean {
         System.out.println("disconnect = " + url);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("NetworkClient.afterPropertiesSet");
+    public void init() {
+        System.out.println("NetworkClient.init");
         connect();
-        call("초기화 연결 메시지");
+        call("콜 메서드가 동작합니다. 초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception {
-        System.out.println("NetworkClient.destroy");
+    public void close() {
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
