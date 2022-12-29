@@ -2,34 +2,58 @@ package hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class SingletonWithPrototypeTest1 {
 
     @Test
     void prototypeFind() {
-        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Prototype.class);
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBean.class, Prototype.class);
 
-        Prototype bean1 = ac.getBean(Prototype.class);
-        bean1.addCount();
-        int count1 = bean1.getCount();
-        System.out.println("count1 = " + count1);
+        ClientBean bean1 = ac.getBean(ClientBean.class);
+        int count1 = bean1.logic();
+        System.out.println("count = " + count1);
+        assertThat(count1).isEqualTo(1);
 
-        Prototype bean2 = ac.getBean(Prototype.class);
-        bean2.addCount();
-        int count2 = bean2.getCount();
+        ClientBean bean2 = ac.getBean(ClientBean.class);
+        int count2 = bean2.logic();
         System.out.println("count2 = " + count2);
+        assertThat(count2).isEqualTo(2);
 
-        Assertions.assertThat(count1).isEqualTo(count2);
+        ac.close();
     }
 
     @Scope("singleton")
-    static class Singleton {
+    static class ClientBean {
+        private final Prototype prototype;
 
+        @Autowired
+        public ClientBean(Prototype prototype) {
+            this.prototype = prototype;
+        }
+
+        public int logic() {
+            prototype.addCount();
+            return prototype.getCount();
+        }
+
+        @PostConstruct
+        public void init() {
+            System.out.println("Singleton.init");
+        }
+
+        @PreDestroy
+        public void destroy() {
+            prototype.destroy();
+            System.out.println("Singleton.destroy");
+        }
     }
 
     @Scope("prototype")
