@@ -3,6 +3,7 @@ package hello.core.scope;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
@@ -25,21 +26,19 @@ public class SingletonWithPrototypeTest1 {
         ClientBean bean2 = ac.getBean(ClientBean.class);
         int count2 = bean2.logic();
         System.out.println("count2 = " + count2);
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
 
         ac.close();
     }
 
     @Scope("singleton")
     static class ClientBean {
-        private final Prototype prototype;
 
         @Autowired
-        public ClientBean(Prototype prototype) {
-            this.prototype = prototype;
-        }
+        private ApplicationContext applicationContext;
 
         public int logic() {
+            Prototype prototype = applicationContext.getBean(Prototype.class);
             prototype.addCount();
             return prototype.getCount();
         }
@@ -51,7 +50,6 @@ public class SingletonWithPrototypeTest1 {
 
         @PreDestroy
         public void destroy() {
-            prototype.destroy();
             System.out.println("Singleton.destroy");
         }
     }
