@@ -23,7 +23,7 @@ public class MemberListControllerV1 implements ControllerV1 {
         request.setAttribute("members", members);
 
         // 뷰로 전달
-        String viewPath = "/WEB-INF/views/members";
+        String viewPath = "/WEB-INF/views/members.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
     }
