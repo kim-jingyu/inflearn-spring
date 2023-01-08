@@ -16,15 +16,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "frontControllerV3", urlPatterns = "/front-controller/members/v3/*")
+@WebServlet(name = "frontControllerV3", urlPatterns = "/front-controller/v3/*")
 public class FrontControllerV3 extends HttpServlet {
 
     private Map<String, ControllerV3> controllerMap = new HashMap<>();
 
     public FrontControllerV3() {
-        controllerMap.put("/front-controller/members/v3/new-form", new MemberFormControllerV3());
-        controllerMap.put("/front-controller/members/v3/save", new MemberSaveControllerV3());
-        controllerMap.put("/front-controller/members/v3/members", new MemberListControllerV3());
+        controllerMap.put("/front-controller/v3/members/new-form", new MemberFormControllerV3());
+        controllerMap.put("/front-controller/v3/members/save", new MemberSaveControllerV3());
+        controllerMap.put("/front-controller/v3/members", new MemberListControllerV3());
     }
 
     @Override
@@ -42,14 +42,14 @@ public class FrontControllerV3 extends HttpServlet {
 
         ModelView modelView = controller.process(paramMap);
 
-        MyView view = viewResolver(modelView);
+        String viewName = modelView.getViewName();
+        MyView view = viewResolver(viewName);
+
         view.render(modelView.getModel(),request,response);
     }
 
-    private MyView viewResolver(ModelView modelView) {
-        String viewName = modelView.getViewName();
-        MyView view = new MyView("/WEB-INF/views/" + viewName + ".jsp");
-        return view;
+    private MyView viewResolver(String viewName) {
+        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
     private Map<String, String> createParamMap(HttpServletRequest request) {
