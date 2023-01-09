@@ -35,3 +35,23 @@
 - 컨트롤러 interface의 반환 타입은 MyView이다.
   - 따라서 프론트 컨트롤러는 호출 결과로 MyView를 반환받는다.
     - 그리고 view.render()를 호출하면 forward 로직을 수행해서 JSP가 실행된다.
+
+## V3
+![img_2.png](img_2.png)
+- ModelView
+  - 서블릿의 종속성을 제거하기 위해 Model을 직접 만들고, 추가로 View 이름까지 전달하는 객체를 만든다.
+- ControllerV3
+  - 컨트롤러는 서블릿 기술을 전혀 사용하지 않는다.
+  - HttpServletRequest가 제공하는 파라미터는 프론트 컨트롤러가 paramMap에 담아서 호출하게 해준다.
+  - 응답 결과로 뷰 이름과 뷰에 전달할 Model 데이터를 포함하는 ModelView 객체를 반환하면 된다.
+- Controller 구현체
+  - ModelView를 생성할 때 view의 논리적인 이름을 지정한다.
+  - 실제 물리적인 이름은 FrontController - viewResolver 메소드에서 처리한다.
+- FrontControllerV3
+  - viewResolver
+    - 컨트롤러가 반환한 논리 뷰 이름을 실제 물리 뷰 경로로 변환한다.
+  - createParamMap
+    - HttpServletRequest에서 파라미터 정보를 꺼내서 Map으로 변환한다.
+    - 그리고 해당 Map(paramMap)을 컨트롤러에 전달하면서 호출한다.
+- MyView
+  - model 객체를 전달받고, request 객체에 저장해둔다. (setAttribute)
