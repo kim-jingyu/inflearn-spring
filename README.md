@@ -55,3 +55,13 @@
     - 그리고 해당 Map(paramMap)을 컨트롤러에 전달하면서 호출한다.
 - MyView
   - model 객체를 전달받고, request 객체에 저장해둔다. (setAttribute)
+
+## V4
+![img_3.png](img_3.png)
+1. 프론트 컨트롤러 -> 매핑 정보로 컨트롤러 조회
+   - 프론트 컨트롤러 -> 컨트롤러 호출 (paramMap, model)
+2. 컨트롤러 -> 프론트 컨트롤러로 논리 ViewName 반환
+   - 프론트 컨트롤러 -> viewResolver 호출
+3. viewResolver -> MyView 반환
+   - 프론트 컨트롤러 -> MyView.render(model,request,response) 호출
+4. MyView -> HTML 응답
