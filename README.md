@@ -65,3 +65,15 @@
 3. viewResolver -> MyView 반환
    - 프론트 컨트롤러 -> MyView.render(model,request,response) 호출
 4. MyView -> HTML 응답
+
+## V5 - V3
+![img_4.png](img_4.png)
+1. 프론트 컨트롤러 -> 핸들러 매핑 정보로 핸들러 조회
+2. 프론트 컨트롤러 -> 핸들러 어댑터 목록에서 핸들러를 처리할 수 있는 핸들러 어댑터 조회
+3. 프론트 컨트롤러 -> 핸들러 어댑터에 handler 인자 전달 및 호출
+   - 핸들러 어댑터 -> 핸들러 호출
+   - 핸들러 어댑터 -> 프론트 컨트롤러에 ModelView 반환
+4. 프론트 컨트롤러 -> viewResolver 호출
+   - viewResolver -> 프론트 컨트롤러에 MyView 반환
+5. 프론트 컨트롤러 -> MyView.render 메소드에 model 인자 전달 및 호출
+6. MyView -> HTML 응답
