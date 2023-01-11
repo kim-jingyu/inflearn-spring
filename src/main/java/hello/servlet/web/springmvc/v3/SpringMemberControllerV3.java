@@ -28,7 +28,7 @@ public class SpringMemberControllerV3 {
         memberRepository.save(member);
 
         model.addAttribute("member", member);
-        return "save";
+        return "save-result";
     }
 
     @GetMapping
