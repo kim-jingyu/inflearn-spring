@@ -26,7 +26,10 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
         Map<String, Object> model = new HashMap<>();
         String viewName = controller.process(paramMap, model);
 
-        return new ModelView(viewName);
+        ModelView modelView = new ModelView(viewName);
+        modelView.setModel(model);
+
+        return modelView;
     }
 
     private Map<String, String> createParamMap(HttpServletRequest request) {
