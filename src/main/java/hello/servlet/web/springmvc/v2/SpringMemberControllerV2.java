@@ -29,7 +29,7 @@ public class SpringMemberControllerV2 {
         Member member = new Member(username, age);
         memberRepository.save(member);
 
-        ModelAndView mv = new ModelAndView("save");
+        ModelAndView mv = new ModelAndView("save-result");
         mv.addObject("member", member);
         return mv;
     }
