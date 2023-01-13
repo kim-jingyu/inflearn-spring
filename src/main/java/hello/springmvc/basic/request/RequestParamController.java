@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -126,4 +128,36 @@ public class RequestParamController {
 
         return "ok";
     }
+
+    /**
+     * 스프링 MVC 는 @ModelAttribute 가 있으면 다음을 실행한다.
+     * 1. HelloData 객체를 생성한다.
+     * 2. 요청 파라미터의 이름으로 HelloData 객체의 프로퍼트를 찾는다.
+     * 3. 해당 프로퍼티의 setter 를 호출해서 파라미터의 값을 입력 (바인딩) 한다.
+     *
+     * 프로퍼티 -> 객체에 getUsername(), setUsername() 메서드가 있으면, 이 객체는 username 이라는 프로퍼티를 가지고 있다.
+     * 바인딩 오류 -> 숫자가 들어가야 할 곳에 문자를 넣으면 BindException 이 발생한다.
+     * @param helloData
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    /**
+     * @ModelAttribute는 생략이 가능하다.
+     * @param helloData
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+
 }
