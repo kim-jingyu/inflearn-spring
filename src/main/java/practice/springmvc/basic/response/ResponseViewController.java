@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 뷰 템플릿을 호출하는 컨트롤러
+ */
 @Controller
 public class ResponseViewController {
 
