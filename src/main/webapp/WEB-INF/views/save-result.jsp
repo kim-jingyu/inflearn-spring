@@ -6,9 +6,9 @@
 <body>
 
 <ul>
-    <li>id=${member.id}</li>
-    <li>username=${member.username}</li>
-    <li>age=${member.age}</li>
+    <li>id=${user.id}</li>
+    <li>username=${user.username}</li>
+    <li>age=${user.age}</li>
 </ul>
 <a href="/index.html">메인</a>
 </body>

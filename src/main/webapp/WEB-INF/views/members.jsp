@@ -12,7 +12,7 @@
     <th>age</th>
     </thead>
     <tbody>
-    <c:forEach var="item" items="${members}">
+    <c:forEach var="item" items="${users}">
         <tr>
             <td>${item.id}</td>
             <td>${item.username}</td>
