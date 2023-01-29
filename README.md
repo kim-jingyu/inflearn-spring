@@ -13,3 +13,4 @@
     - 상품 수정
 
 ## Flow Chart
+![상품 관리 기능 플로우 차트](https://user-images.githubusercontent.com/73871256/215332772-819ba5be-c31c-41db-b95f-2ef79f21ff3b.png)
