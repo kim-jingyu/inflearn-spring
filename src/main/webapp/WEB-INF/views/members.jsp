@@ -7,18 +7,18 @@
 <body>
 <table>
     <thead>
-    <th>id</th>
-    <th>username</th>
-    <th>age</th>
+        <th>id</th>
+        <th>username</th>
+        <th>age</th>
     </thead>
     <tbody>
-    <c:forEach var="item" items="${users}">
-        <tr>
-            <td>${item.id}</td>
-            <td>${item.username}</td>
-            <td>${item.age}</td>
-        </tr>
-    </c:forEach>
+        <c:forEach var="item" items="${users}">
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.username}</td>
+                <td>${item.age}</td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
 
