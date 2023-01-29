@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import practice.servlet.web.frontcontroller.v3.MemberFormControllerV3;
 import practice.servlet.web.frontcontroller.v3.MemberListControllerV3;
 import practice.servlet.web.frontcontroller.v3.MemberSaveControllerV3;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @WebServlet(name = "frontControllerServlet", urlPatterns = "/front-controller/*")
 public class FrontControllerServlet extends HttpServlet {
 
@@ -33,6 +35,7 @@ public class FrontControllerServlet extends HttpServlet {
     }
 
     private void initHandlerMappingMaps() {
+        log.info("handlerMappingMaps");
         handlerMappingMap.put("/front-controller/v3/members/new-form", new MemberFormControllerV3());
         handlerMappingMap.put("/front-controller/v3/members/save", new MemberSaveControllerV3());
         handlerMappingMap.put("/front-controller/v3/members", new MemberListControllerV3());
@@ -43,6 +46,7 @@ public class FrontControllerServlet extends HttpServlet {
     }
 
     private void initHandlerAdapters() {
+        log.info("handlerAdapters");
         handlerAdapters.add(new ControllerV3HandlerAdapter());
         handlerAdapters.add(new ControllerV4HandlerAdapter());
     }
@@ -64,7 +68,7 @@ public class FrontControllerServlet extends HttpServlet {
     }
 
     private MyView viewResolver(String viewName) {
-        return new MyView("/WEB-INF/view/" + viewName + ".jsp");
+        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
     private MyHandlerAdapter getHandlerAdapter(Object handler) {
