@@ -7,8 +7,8 @@
 
 <ul>
     <li>id=${user.id}</li>
-    <li>username=${user.username}</li>
-    <li>age=${user.age}</li>
+    <li>id=${user.username}</li>
+    <li>id=${user.age}</li>
 </ul>
 <a href="/index.html">메인</a>
 </body>
