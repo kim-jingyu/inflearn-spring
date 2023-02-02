@@ -1,7 +1,13 @@
 # 스프링 MVC 1편
 
 ## 🚀 서블릿, JSP, MVC 패턴
-- 회원 관리 웹 애플리케이션 요구사항
+- #### [서블릿으로 회원 관리 웹 애플리케이션 만들기](https://github.com/jingyu9804/servlet/tree/main/src/main/java/hello/servlet/web/servlet)
+- #### [JSP로 회원 관리 웹 애플리케이션 만들기](https://github.com/jingyu9804/servlet/tree/main/src/main/webapp/jsp)
+- #### [서블릿에 MVC 패턴 적용하여 회원 관리 웹 애플리케이션 만들기](https://github.com/jingyu9804/servlet/tree/main/src/main/java/hello/servlet/web/servletmvc)
+- #### [MVC 프레임워크 만들기](https://github.com/jingyu9804/servlet/tree/main/src/main/java/hello/servlet/web/frontcontroller)
+- #### [SpringMVC 기본 기능](https://github.com/jingyu9804/servlet/tree/main/src/main/java/hello/servlet/web/springmvc)
+
+## 회원 관리 웹 애플리케이션 요구사항
   - 회원 정보
     1. 이름 : username
     2. 나이 : age
