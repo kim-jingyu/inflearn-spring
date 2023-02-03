@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>variable</title>
+</head>
+<body>
+
+<h1>Object</h1>
+<ul>
+  <li>프로퍼티 접근법 1 = <span th:text="${user.username}"></span></li>
+  <li>프로퍼티 접근법 2 = <span th:text="${user['username']}"></span></li>
+  <li>직접 접근법 = <span th:text="${user.getUsername()}"></span></li>
+</ul>
+
+<h1>List</h1>
+<ul>
+  <li>프로퍼티 접근법 1 = <span th:text="${list[0].username}"></span></li>
+  <li>프로퍼티 접근법 2 = <span th:text="${list[0]['username']}"></span></li>
+  <li>직접 접근법 2 = <span th:text="${list[0].getUsername()}"></span></li>
+</ul>
+
+<h1>Map</h1>
+<ul>
+  <li>프로퍼티 접근법 1 = <span th:text="${map['userA'].username}"></span></li>
+  <li>프로퍼티 접근법 2 = <span th:text="${map.get('userA')['username']}"></span></li>
+  <li>직접 접근법 1 = <span th:text="${map.userA.getUsername()}"></span></li>
+</ul>
+
+<h1>정리</h1>
+<ul>
+  <li>프로퍼티 접근법 1 -> .attribute</li>
+  <li>프로퍼티 접근법 2 -> ['attribute']</li>
+  <li>직접 접근법 1 -> .getAttribute </li>
+</ul>
+
+</body>
+</html>
