@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FragmentMain</title>
+</head>
+<body>
+<h1>템플릿 조각 insert</h1>
+<div th:insert="~{template/fragment/footer :: copy}"></div>
+
+<h1>템플릿 조각 replace</h1>
+<div th:replace="~{template/fragment/footer :: copy}"></div>
+
+<h1>템플릿 조각 단축 표현식</h1>
+<div th:insert="template/fragment/footer :: copy"></div>
+
+<h1>파라미터 사용</h1>
+<div th:insert="~{template/fragment/footer :: copyParam ('파라미터1','파라미터2')}"></div>
+
+</body>
+</html>
