@@ -10,8 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BasicController {
 
     @GetMapping("/text-basic")
-    public String text(Model model) {
+    public String basic(Model model) {
         model.addAttribute("data", "text output test");
+        model.addAttribute("escaped", "<b>escaped test</b>");
         return "basic/text-basic";
+    }
+
+    @GetMapping("/text-unescaped")
+    public String unescaped(Model model) {
+        model.addAttribute("unescaped", "<b>unescaped test</b>");
+        return "basic/text-unescaped";
     }
 }

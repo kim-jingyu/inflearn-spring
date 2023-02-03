@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unescaped</title>
+</head>
+<body>
+
+<h1>utext</h1>
+<ul>
+  <li><span th:utext="${unescaped}"></span></li>
+</ul>
+
+<h1><span th:inline="none">[(...)]</span></h1>
+<ul>
+  <li>[(${unescaped})]</li>
+</ul>
+</body>
+</html>
