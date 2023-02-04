@@ -1,4 +1,4 @@
-package hello.itemservice.web.item.basic;
+package hello.itemservice.web.form;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
@@ -12,9 +12,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/basic/items")
+@RequestMapping("/form/items")
 @RequiredArgsConstructor
-public class BasicController {
+public class FormItemController {
 
     private final ItemRepository itemRepository;
 
@@ -23,7 +23,7 @@ public class BasicController {
         List<Item> items = itemRepository.findAllItems();
 
         model.addAttribute("items", items);
-        return "basic/items";
+        return "form/items";
     }
 
     @GetMapping("/{itemId}")
@@ -31,12 +31,12 @@ public class BasicController {
         Item item = itemRepository.findItemById(itemId);
 
         model.addAttribute("item", item);
-        return "basic/item";
+        return "form/item";
     }
 
     @GetMapping("/add")
     public String addForm() {
-        return "basic/addForm";
+        return "form/addForm";
     }
 
     @PostMapping("/add")
@@ -44,20 +44,20 @@ public class BasicController {
         Item savedItem = itemRepository.saveItem(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/form/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findItemById(itemId);
         model.addAttribute("item", item);
-        return "basic/editForm";
+        return "form/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String editItem(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.updateItem(itemId, item);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/form/items/{itemId}";
     }
 
     @PostConstruct
