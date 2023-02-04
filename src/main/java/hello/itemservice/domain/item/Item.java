@@ -3,6 +3,8 @@ package hello.itemservice.domain.item;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 상품 객체
  */
@@ -14,6 +16,11 @@ public class Item {
     private String itemName; // 상품 이름
     private Integer price; // 상품 가격
     private Integer quantity; // 상품 수량
+
+    private boolean open; // 판매 여부
+    private List<String> regions; // 등록 지역
+    private ItemType itemType; // 상품 종류
+    private String deliveryCode; // 배송 방식
 
     public Item() {
     }
