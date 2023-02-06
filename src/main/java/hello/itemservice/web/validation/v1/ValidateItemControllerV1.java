@@ -1,4 +1,4 @@
-package hello.itemservice.web.form;
+package hello.itemservice.web.validation.v1;
 
 import hello.itemservice.domain.item.DeliveryCode;
 import hello.itemservice.domain.item.Item;
@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-//@Controller
-@RequestMapping("/form/items")
+@Controller
+@RequestMapping("/validation/v1/items")
 @RequiredArgsConstructor
-public class FormItemController {
+public class ValidateItemControllerV1 {
 
     private final ItemRepository itemRepository;
 
@@ -54,7 +54,7 @@ public class FormItemController {
         List<Item> items = itemRepository.findAllItems();
 
         model.addAttribute("items", items);
-        return "form/items";
+        return "validation/v1/items";
     }
 
     @GetMapping("/{itemId}")
@@ -62,13 +62,13 @@ public class FormItemController {
         Item item = itemRepository.findItemById(itemId);
 
         model.addAttribute("item", item);
-        return "form/item";
+        return "validation/v1/item";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
-        return "form/addForm";
+        return "validation/v1/addForm";
     }
 
     @PostMapping("/add")
@@ -81,14 +81,14 @@ public class FormItemController {
         Item savedItem = itemRepository.saveItem(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/form/items/{itemId}";
+        return "redirect:/validation/v1/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findItemById(itemId);
         model.addAttribute("item", item);
-        return "form/editForm";
+        return "validation/v1/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
@@ -98,7 +98,7 @@ public class FormItemController {
         log.info("item.delivery={}", item.getDeliveryCode());
 
         itemRepository.updateItem(itemId, item);
-        return "redirect:/form/items/{itemId}";
+        return "redirect:/validation/v1/items/{itemId}";
     }
 
     @PostConstruct
