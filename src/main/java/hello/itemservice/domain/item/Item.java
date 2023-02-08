@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ import java.util.List;
  */
 @Getter
 @Setter
+// Bean Validation - Object error
+// 직접 자바 코드로 작성하는 것을 권장
+//@ScriptAssert(lang = "javascript", script = "_this.price * _this.quantity >= 10000")
 public class Item {
 
     private Long id; // 상품 번호
