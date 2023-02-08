@@ -1,7 +1,11 @@
 package hello.itemservice.domain.item;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -13,8 +17,16 @@ import java.util.List;
 public class Item {
 
     private Long id; // 상품 번호
+
+    @NotBlank
     private String itemName; // 상품 이름
+
+    @NotNull
+    @Range(min = 1000, max = 1000000)
     private Integer price; // 상품 가격
+
+    @NotNull
+    @Max(9999)
     private Integer quantity; // 상품 수량
 
     private Boolean open; // 판매 여부
