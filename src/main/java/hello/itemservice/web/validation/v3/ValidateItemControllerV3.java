@@ -78,10 +78,18 @@ public class ValidateItemControllerV3 {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        //특정 필드 예외가 아닌 전체 예외 ( 글로벌 오류 추가 - Object error )
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
-            log.info("error={}", bindingResult);
+            log.info("bindingResult-addForm={}", bindingResult);
             return "validation/v3/addForm";
         }
 
@@ -100,11 +108,22 @@ public class ValidateItemControllerV3 {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String editItem(@PathVariable Long itemId, @ModelAttribute Item item) {
-        log.info("item.regions={}", item.getRegions());
-        log.info("item.itemType={}", item.getItemType());
-        log.info("item.delivery={}", item.getDeliveryCode());
+    public String editItem(@PathVariable Long itemId, @Validated @ModelAttribute Item item, BindingResult bindingResult) {
+        //특정 필드가 아닌 전체 예외 ( 글로벌 오류 - object error )
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
 
+        //검증에 실패하면 다시 수정 폼으로
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult-editForm={}", bindingResult);
+            return "validation/v3/editForm";
+        }
+
+        //성공 로직
         itemRepository.updateItem(itemId, item);
         return "redirect:/validation/v3/items/{itemId}";
     }
