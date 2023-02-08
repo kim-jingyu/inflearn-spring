@@ -1,6 +1,6 @@
-package hello.itemservice.domain.item;
+package hello.itemservice.web.item.form;
 
-import jakarta.validation.constraints.Max;
+import hello.itemservice.domain.item.ItemType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -9,10 +9,13 @@ import org.hibernate.validator.constraints.Range;
 import java.util.List;
 
 /**
- * Item 저장용 폼
+ * 아이템 수정용 폼
  */
 @Data
-public class ItemSaveForm {
+public class ItemUpdateForm {
+
+    @NotNull
+    private Long id;
 
     @NotBlank
     private String itemName;
@@ -21,8 +24,7 @@ public class ItemSaveForm {
     @Range(min = 1000, max = 1000000)
     private Integer price;
 
-    @NotNull
-    @Max(value = 9999)
+    // 자유롭게 수량 변경 가능
     private Integer quantity;
 
     private Boolean open; // 판매 여부
