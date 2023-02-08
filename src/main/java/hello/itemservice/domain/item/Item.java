@@ -20,17 +20,18 @@ import java.util.List;
 //@ScriptAssert(lang = "javascript", script = "_this.price * _this.quantity >= 10000")
 public class Item {
 
+    @NotNull(groups = UpdateCheck.class)
     private Long id; // 상품 번호
 
-    @NotBlank
+    @NotBlank(groups = {UpdateCheck.class, SaveCheck.class})
     private String itemName; // 상품 이름
 
-    @NotNull
-    @Range(min = 1000, max = 1000000)
+    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+    @Range(min = 1000, max = 1000000, groups = {UpdateCheck.class, SaveCheck.class})
     private Integer price; // 상품 가격
 
-    @NotNull
-    @Max(9999)
+    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+    @Max(value = 9999, groups = {SaveCheck.class})
     private Integer quantity; // 상품 수량
 
     private Boolean open; // 판매 여부
