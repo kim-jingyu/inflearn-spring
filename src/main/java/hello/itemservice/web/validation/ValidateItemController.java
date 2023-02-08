@@ -1,4 +1,4 @@
-package hello.itemservice.web.validation.v4;
+package hello.itemservice.web.validation;
 
 import hello.itemservice.domain.item.*;
 import jakarta.annotation.PostConstruct;
@@ -20,10 +20,10 @@ import java.util.Map;
  * 폼 전송 객체 사용 컨트롤러
  */
 @Slf4j
-//@Controller
-@RequestMapping("/validation/v4/items")
+@Controller
+@RequestMapping("/validation/items")
 @RequiredArgsConstructor
-public class ValidateItemControllerV4 {
+public class ValidateItemController {
 
     private final ItemRepository itemRepository;
 
@@ -55,7 +55,7 @@ public class ValidateItemControllerV4 {
         List<Item> items = itemRepository.findAllItems();
 
         model.addAttribute("items", items);
-        return "validation/v4/items";
+        return "validation/items";
     }
 
     @GetMapping("/{itemId}")
@@ -63,13 +63,13 @@ public class ValidateItemControllerV4 {
         Item item = itemRepository.findItemById(itemId);
 
         model.addAttribute("item", item);
-        return "validation/v4/item";
+        return "validation/item";
     }
 
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
-        return "validation/v4/addForm";
+        return "validation/addForm";
     }
 
     @PostMapping("/add")
@@ -78,14 +78,14 @@ public class ValidateItemControllerV4 {
         if (form.getPrice() != null && form.getQuantity() != null) {
             int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+                bindingResult.reject("totalPrice", new Object[]{10000, resultPrice}, null);
             }
         }
 
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("bindingResult-addForm={}", bindingResult);
-            return "validation/v4/addForm";
+            return "validation/addForm";
         }
 
         //성공 로직
@@ -94,14 +94,14 @@ public class ValidateItemControllerV4 {
         Item savedItem = itemRepository.saveItem(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v4/items/{itemId}";
+        return "redirect:/validation/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findItemById(itemId);
         model.addAttribute("item", item);
-        return "validation/v4/editForm";
+        return "validation/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
@@ -110,21 +110,21 @@ public class ValidateItemControllerV4 {
         if (form.getPrice() != null && form.getQuantity() != null) {
             int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+                bindingResult.reject("totalPrice", new Object[]{10000, resultPrice}, null);
             }
         }
 
         //검증에 실패하면 다시 수정 폼으로
         if (bindingResult.hasErrors()) {
             log.info("bindingResult-editForm={}", bindingResult);
-            return "validation/v4/editForm";
+            return "validation/editForm";
         }
 
         //성공 로직
         Item item = new Item(form.getItemName(), form.getPrice(), form.getQuantity());
 
         itemRepository.updateItem(itemId, item);
-        return "redirect:/validation/v4/items/{itemId}";
+        return "redirect:/validation/items/{itemId}";
     }
 
     @PostConstruct
