@@ -1,0 +1,31 @@
+package hello.itemservice.web.validation;
+
+import hello.itemservice.domain.item.ItemSaveForm;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+
+/**
+ * 폼 전송 객체 사용 API 컨트롤러
+ */
+@Slf4j
+@RestController
+@RequestMapping("/validation/items")
+public class ValidateItemApiController {
+
+    @PostMapping("/add")
+    public Object addItem(@Validated @RequestBody ItemSaveForm form, BindingResult bindingResult) {
+
+        log.info("API 컨트롤러 호출");
+
+        if (bindingResult.hasErrors()) {
+            log.info("검증 오류 발생 = {}", bindingResult);
+            return bindingResult.getAllErrors();
+        }
+
+        log.info("성공 로직 실행");
+        return form;
+    }
+}

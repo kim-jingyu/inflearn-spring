@@ -20,7 +20,7 @@ import java.util.Map;
  * 폼 전송 객체 사용 컨트롤러
  */
 @Slf4j
-@Controller
+//@Controller
 @RequestMapping("/validation/items")
 @RequiredArgsConstructor
 public class ValidateItemController {
