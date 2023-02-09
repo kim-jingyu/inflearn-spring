@@ -12,8 +12,11 @@
     - 상품 등록
     - 상품 수정
 
-## Flow Chart - v1
+## 상품 관리 Flow Chart - v1
 ![상품 관리 기능 플로우 차트](https://user-images.githubusercontent.com/73871256/215332772-819ba5be-c31c-41db-b95f-2ef79f21ff3b.png)
+
+## 상품 관리 Flow Chart - v2
+![상품 관리 플로우 차트](https://user-images.githubusercontent.com/73871256/217708874-6c6c69d9-4629-4300-a2ba-5d0238606265.png)
 
 ## 검증 요구사항
 - 타입 검증
