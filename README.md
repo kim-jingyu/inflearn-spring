@@ -44,4 +44,5 @@
 ![상품 관리 플로우 차트](https://user-images.githubusercontent.com/73871256/217708874-6c6c69d9-4629-4300-a2ba-5d0238606265.png)
 
 ## 상품 관리 Flow Chart - v3
-![상품 관리 Flow Chart - v3](https://user-images.githubusercontent.com/73871256/217711819-8b308d22-061a-4db4-81a8-74260bf02200.png)
+![상품 관리 Flow Chart - v3](https://user-images.githubusercontent.com/73871256/217712774-f4d6a2ce-6e16-4dfd-8818-34d99995627d.png)
+
