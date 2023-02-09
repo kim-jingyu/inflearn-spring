@@ -127,10 +127,4 @@ public class ValidateItemController {
         itemRepository.updateItem(itemId, item);
         return "redirect:/validation/items/{itemId}";
     }
-
-    @PostConstruct
-    public void init() {
-        itemRepository.saveItem(new Item("A", 1000, 10));
-        itemRepository.saveItem(new Item("B", 2000, 20));
-    }
 }
