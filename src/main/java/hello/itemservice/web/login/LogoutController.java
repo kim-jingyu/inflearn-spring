@@ -1,6 +1,8 @@
 package hello.itemservice.web.login;
 
+import hello.itemservice.web.session.SessionManager;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,15 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class LogoutController {
 
+    private final SessionManager sessionManager;
+
     /**
+     * 세션X
      * 로그아웃 기능
      * 서버에서 해당 쿠키의 종료 날짜를 0으로 지정
      *
      * @param response
      * @return
      */
-    @PostMapping
-    public String logout(HttpServletResponse response) {
+//    @PostMapping
+    public String logoutV1(HttpServletResponse response) {
         expireCookie(response,"memberId");
         return "redirect:/";
     }
@@ -31,5 +36,17 @@ public class LogoutController {
         Cookie cookie = new Cookie(cookieName, null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+    }
+
+    /**
+     * 세션O
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping
+    public String logoutV2(HttpServletRequest request) {
+        sessionManager.expireSession(request);
+        return "redirect:/";
     }
 }
