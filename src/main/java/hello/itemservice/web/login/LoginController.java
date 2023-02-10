@@ -2,10 +2,13 @@ package hello.itemservice.web.login;
 
 import hello.itemservice.domain.login.LoginService;
 import hello.itemservice.domain.member.Member;
+import hello.itemservice.web.SessionConst;
 import hello.itemservice.web.login.form.LoginForm;
 import hello.itemservice.web.session.SessionManager;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -65,7 +68,7 @@ public class LoginController {
     /**
      * 세션 O
      */
-    @PostMapping
+//    @PostMapping
     public String loginV2(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult, HttpServletResponse response) {
 
         // 검증 로직 실패시
@@ -86,6 +89,37 @@ public class LoginController {
 
         // 세션 관리자를 통해 세션을 생성하고, 회원 데이터 보관 + 쿠키 발행
         sessionManager.createSession(loginMember, response);
+
+        return "redirect:/";
+    }
+
+    /**
+     * 세션 O - HttpSession
+     */
+    @PostMapping
+    public String loginV3(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+
+        // 검증 로직 실패 시
+        if (bindingResult.hasErrors()) {
+            return "login/loginForm";
+        }
+
+        // 검증 로직 성공 시
+        Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
+
+        // 로그인 실패 시
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "login/loginForm";
+        }
+
+        // 로그인 성공 시
+
+        // 세션이 있으면 세션 반환, 없으면 신규 세션 생성
+        HttpSession session = request.getSession();
+
+        // 세션에 회원 정보 보관
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:/";
     }

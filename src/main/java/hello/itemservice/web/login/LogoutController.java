@@ -4,6 +4,7 @@ import hello.itemservice.web.session.SessionManager;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -44,9 +45,22 @@ public class LogoutController {
      * @param request
      * @return
      */
-    @PostMapping
+//    @PostMapping
     public String logoutV2(HttpServletRequest request) {
         sessionManager.expireSession(request);
+        return "redirect:/";
+    }
+
+    /**
+     * HttpSession - 세션 O
+     */
+    @PostMapping
+    public String logoutV3(HttpServletRequest request) {
+        // 세션 삭제
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 }
