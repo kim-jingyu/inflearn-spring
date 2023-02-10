@@ -1,15 +1,50 @@
 package hello.itemservice.web;
 
+import hello.itemservice.domain.member.Member;
+import hello.itemservice.domain.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
+@RequestMapping("/")
 public class HomeController {
 
-    @GetMapping("/")
+    private final MemberRepository memberRepository;
+
+//    @GetMapping
     public String home() {
         return "home";
+    }
+
+    /**
+     * @CookieValue 를 사용하면 편리하게 쿠리를 조회할 수 있다.
+     * 로그인 하지 않은 사용자도 홈에 접근할 수 있게 required=false 를 사용한다.
+     */
+    @GetMapping
+    public String homeLogin(@CookieValue(name = "memberId", required = false) Long memberId, Model model) {
+
+        // 로그인 쿠키가 없는 사용자는 기존 home 으로 보낸다.
+        if (memberId == null) {
+            return "home";
+        }
+
+        // 로그인 쿠키가 있는 사용자
+        Member loginMember = memberRepository.findMemberByID(memberId);
+
+        // 찾는 회원이 없으면
+        if (loginMember == null) {
+            return "home";
+        }
+
+        // 로그인 쿠키도 있고, 찾는 회원도 있으면
+        model.addAttribute("member", loginMember);
+        return "loginHome";
     }
 }

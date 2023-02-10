@@ -6,6 +6,7 @@ import hello.itemservice.web.item.form.ItemUpdateForm;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -21,8 +22,8 @@ import java.util.Map;
  * 폼 전송 객체 사용 컨트롤러
  */
 @Slf4j
-//@Controller
-@RequestMapping("/validation/items")
+@Controller
+@RequestMapping("/items")
 @RequiredArgsConstructor
 public class ValidateItemController {
 
@@ -95,7 +96,7 @@ public class ValidateItemController {
         Item savedItem = itemRepository.saveItem(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/items/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
@@ -125,6 +126,6 @@ public class ValidateItemController {
         Item item = new Item(form.getItemName(), form.getPrice(), form.getQuantity());
 
         itemRepository.updateItem(itemId, item);
-        return "redirect:/validation/items/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 }

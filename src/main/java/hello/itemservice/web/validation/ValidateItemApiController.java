@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@RequestMapping("/validation/items")
+@RequestMapping("/api/items")
 public class ValidateItemApiController {
 
     @PostMapping("/add")
