@@ -72,6 +72,7 @@ public class HomeController {
         return "loginHome";
     }
 
+    @GetMapping
     public String homeLoginV3(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession(false);
