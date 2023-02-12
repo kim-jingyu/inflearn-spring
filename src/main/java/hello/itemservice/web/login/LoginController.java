@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -96,7 +93,7 @@ public class LoginController {
     /**
      * 세션 O - HttpSession
      */
-    @PostMapping
+//    @PostMapping
     public String loginV3(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
 
         // 검증 로직 실패 시
@@ -122,5 +119,35 @@ public class LoginController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:/";
+    }
+
+    @PostMapping
+    public String loginV4(@Validated @ModelAttribute LoginForm form, BindingResult bindingResult,
+                          @RequestParam(defaultValue = "/") String redirectURL,
+                          HttpServletRequest request) {
+
+        //검증 로직 실패 시
+        if (bindingResult.hasErrors()) {
+            return "login/loginForm";
+        }
+
+        // 검증 로직 성공 시
+        Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
+
+        // 로그인 실패 시
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "login/loginHome";
+        }
+
+        // 로그인 성공 시
+
+        // 세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+        HttpSession session = request.getSession(true);
+        // 세션에 로그인 회원 정보 보관
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        // redirectURL 적용
+        return "redirect:" + redirectURL;
     }
 }
