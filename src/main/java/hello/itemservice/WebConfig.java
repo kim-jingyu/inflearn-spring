@@ -2,23 +2,34 @@ package hello.itemservice;
 
 import hello.itemservice.web.filter.LogFilter;
 import hello.itemservice.web.filter.LoginCheckFilter;
+import hello.itemservice.web.interceptor.LogInterceptor;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 필터 설정
  */
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor())                   // 인터셉터를 등록한다.
+                .order(1)                                               // 인터셉터의 호출 순서를 지정한다.
+                .addPathPatterns("/**")                                 // 인터셉터를 적용할 URL 패턴을 지정한다.
+                .excludePathPatterns("/css/**", "/*.ico", "/error");    // 인터셉터에서 제외할 패턴을 지정한다.
+    }
 
     /**
      * 필터를 등록하는 방법
      * 스프링 부트를 사용한다면 FilterRegistrationBean 을 사용해서 등록
      * @return
      */
-    @Bean
+//    @Bean
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
 
@@ -32,7 +43,7 @@ public class WebConfig {
         return filterRegistrationBean;
     }
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean loginCheckFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
 
