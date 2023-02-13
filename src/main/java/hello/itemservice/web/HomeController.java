@@ -2,6 +2,7 @@ package hello.itemservice.web;
 
 import hello.itemservice.domain.member.Member;
 import hello.itemservice.domain.member.MemberRepository;
+import hello.itemservice.web.argumentresolver.Login;
 import hello.itemservice.web.session.SessionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -97,10 +98,28 @@ public class HomeController {
     /**
      * 스프링은 세션을 더 편리하게 사용할 수 있도록 @SessionAttribute 를 지원한다.
      */
-    @GetMapping
-    public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+//    @GetMapping
+    public String homeLoginWithSpring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
 
         // 세션에 회원 데이터가 없으면 기본 화면 반환
+        if (loginMember == null) {
+            return "home";
+        }
+
+        // 세션이 유지되면 로그인으로 이동
+        model.addAttribute("member", loginMember);
+        return "loginHome";
+    }
+
+    /**
+     * @Login 애노테이션이 있으면
+     * 직접 만든 ArgumentResolver 가 동작해서
+     * 자동으로 세션에 있는 로그인 회원을 찾아주고, 만약 세션에 없다면 null 을 반환한다.
+     */
+    @GetMapping
+    public String homeLoginWithArgumentResolver(@Login Member loginMember, Model model) {
+
+        // 세션에 회원 데이터가 없으면 홈 화면 반환
         if (loginMember == null) {
             return "home";
         }
