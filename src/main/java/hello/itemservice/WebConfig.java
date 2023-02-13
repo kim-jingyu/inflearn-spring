@@ -3,6 +3,7 @@ package hello.itemservice;
 import hello.itemservice.web.filter.LogFilter;
 import hello.itemservice.web.filter.LoginCheckFilter;
 import hello.itemservice.web.interceptor.LogInterceptor;
+import hello.itemservice.web.interceptor.LoginCheckInterceptor;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)                                               // 인터셉터의 호출 순서를 지정한다.
                 .addPathPatterns("/**")                                 // 인터셉터를 적용할 URL 패턴을 지정한다.
                 .excludePathPatterns("/css/**", "/*.ico", "/error");    // 인터셉터에서 제외할 패턴을 지정한다.
+
+        registry.addInterceptor(new LoginCheckInterceptor())
+                .order(2)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "/members/add", "/login", "/logout", "/css/**", "/*.ico", "/error");
     }
 
     /**
