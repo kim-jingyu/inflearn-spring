@@ -1,5 +1,6 @@
 package hello.exception.api;
 
+import hello.exception.userdefinition.BadRequestException;
 import hello.exception.userdefinition.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,6 +36,15 @@ public class ApiExceptionController {
         }
 
         return new MemberDto(id, "hello " + id);
+    }
+
+    /**
+     * @ResponseStatus 애노테이션 사용한 예외 발생
+     * @return
+     */
+    @GetMapping("/api/response-status-400")
+    public String responseStatus400() {
+        throw new BadRequestException();
     }
 
     @Data

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * ResponseStatusExceptionResolver 코드도 확인해보면 결국 response.sendError(statusCode, resolvedReason)을 호출한다.
  * 즉, sendError 를 호출했기 때문에 WAS 에서 다시 오류 페이지 (/error) 를 내부 요청한다.
  */
-@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "잘못된 요청 오류")
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "error.bad")
 public class BadRequestException extends RuntimeException{
 }
