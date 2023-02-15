@@ -1,0 +1,28 @@
+package hello.exception;
+
+import hello.exception.filter.LogFilter;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.Filter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * 필터 등록
+ */
+@Configuration
+public class WebConfig {
+
+    /**
+     * 로그 필터 등록
+     */
+    @Bean
+    public FilterRegistrationBean logFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new LogFilter());
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.addUrlPatterns("/*");
+        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR); // 클라이언트 요청 및 오류 페이지 요청에서 필터 호출
+        return filterRegistrationBean;
+    }
+}
