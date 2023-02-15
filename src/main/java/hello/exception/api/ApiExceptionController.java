@@ -5,9 +5,11 @@ import hello.exception.userdefinition.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * API 예외 컨트롤러
@@ -45,6 +47,11 @@ public class ApiExceptionController {
     @GetMapping("/api/response-status-400")
     public String responseStatus400() {
         throw new BadRequestException();
+    }
+
+    @GetMapping("/api/response-status-ex2")
+    public String responseStatusEx2() {
+        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "error.bad", new IllegalArgumentException());
     }
 
     @Data
