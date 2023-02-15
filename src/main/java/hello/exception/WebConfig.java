@@ -3,6 +3,7 @@ package hello.exception;
 import hello.exception.filter.LogFilter;
 import hello.exception.interceptor.LogInterceptor;
 import hello.exception.resolver.MyHandlerExceptionResolver;
+import hello.exception.resolver.UserHandlerExceptionResolver;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,17 +17,20 @@ import java.util.List;
 
 /**
  * 필터, 인터셉터 등록
+ * ExceptionResolver 등록
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     /**
      * MyHandlerExceptionResolver 등록
+     * UserHandlerExceptionResolver 등록
      * @param resolvers the list of configured resolvers to extend
      */
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 
     /**
