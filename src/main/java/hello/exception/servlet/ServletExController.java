@@ -26,7 +26,7 @@ public class ServletExController {
      * 오류가 발생했을 때 sendError 메서드 사용 시
      */
     @GetMapping("/error-404")
-    public void error400(HttpServletResponse response) throws IOException {
+    public void error404(HttpServletResponse response) throws IOException {
         response.sendError(HttpServletResponse.SC_NOT_FOUND,"404 예외 발생 ㅠㅜ");
     }
 
