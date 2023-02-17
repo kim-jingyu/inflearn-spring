@@ -1,11 +1,13 @@
 package hello.typeconverter.controller;
 
+import hello.typeconverter.type.IpPort;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -53,9 +55,20 @@ public class ConverterController {
         return "ok";
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     static class UserData {
         private Integer data;
     }
 
+    /**
+     * @RequestParam 을 처리하는 ArgumentResolver 인 RequestParamMethodArgumentResolver 에서
+     * ConversionService 를 사용해서 타입을 변환한다.
+     */
+    @GetMapping("/ip-port")
+    public String ipPort(@ModelAttribute IpPort ipPort) {
+        log.info("ip = {}", ipPort.getIp());
+        log.info("port = {}", ipPort.getPort());
+        return "ok";
+    }
 }
