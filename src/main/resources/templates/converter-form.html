@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter Form</title>
+</head>
+<body>
+
+<form th:object="${form}" th:method="post">
+  th:field 사용 : <input type="text" th:field="*{ipPort}"><br>
+  th:value 사용 : <input type="text" th:value="*{ipPort}"><br>
+    <input type="submit">
+</form>
+
+</body>
+</html>
