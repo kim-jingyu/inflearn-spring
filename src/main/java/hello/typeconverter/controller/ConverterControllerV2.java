@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ConverterControllerV2 {
@@ -37,7 +38,7 @@ public class ConverterControllerV2 {
     /**
      * 뷰 템플릿 폼의 IpPort 정보를 받아서 출력한다.
      */
-    @GetMapping("/converter/edit")
+    @PostMapping("/converter/edit")
     public String converterEdit(@ModelAttribute IpPortDto form, Model model) {
         IpPort ipPort = form.getIpPort();
 
