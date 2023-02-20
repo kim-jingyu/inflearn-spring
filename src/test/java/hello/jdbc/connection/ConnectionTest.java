@@ -54,9 +54,13 @@ public class ConnectionTest {
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);
         dataSource.setMaximumPoolSize(10);
+        dataSource.setPoolName("MyPool!!");
 
         Connection con1 = dataSource.getConnection();
         Connection con2 = dataSource.getConnection();
+
+        log.info("con1 정보 = {}", con1);
+        log.info("con2 정보 = {}", con2);
 
         /**
          * Connection Pool 에서 Connection 을 생성하는 작업은 애플리케이션 실행 속도에 영향을 주지 않기 위해 별도의 쓰레드에서 작동한다.
