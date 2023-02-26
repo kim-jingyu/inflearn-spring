@@ -31,24 +31,24 @@ public class MemberServiceV3_1 {
 
         try {
             // 비즈니스 로직
-            bizLogic(fromId, toId);
+            bizLogic(fromId, toId, money);
 
             // 성공시 commit
             transactionManager.commit(status);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // 실패시 rollback
             transactionManager.rollback(status);
-            throw new IllegalStateException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
-    private void bizLogic(String fromId, String toId) throws SQLException {
+    private void bizLogic(String fromId, String toId, int money) throws SQLException {
         Member fromMember = memberRepository.findById(fromId);
         Member toMember = memberRepository.findById(toId);
 
-        memberRepository.update(fromId, fromMember.getMoney() - 2000);
+        memberRepository.update(fromId, fromMember.getMoney() - money);
         validation(toMember);
-        memberRepository.update(toId, toMember.getMoney() + 2000);
+        memberRepository.update(toId, toMember.getMoney() + money);
     }
 
     private void validation(Member toMember) {
