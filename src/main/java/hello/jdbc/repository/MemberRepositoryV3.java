@@ -128,10 +128,14 @@ public class MemberRepositoryV3 {
         // JdbcUtils 를 사용하면 커넥션을 좀 더 편리하게 닫을 수 있다.
         JdbcUtils.closeResultSet(rs);
         JdbcUtils.closeStatement(psmt);
-        JdbcUtils.closeConnection(con);
+        // DataSourceUtils.releaseConnection()
+        // 트랜잭션을 사용하기 위해 동기화된 커넥션은 닫지 않고 그대로 유지해준다.
+        DataSourceUtils.releaseConnection(con, dataSource);
     }
 
     private Connection getConnection() {
+        // DataSourceUtils.getConnection()
+        // 트랜잭션 동기화 매니저가 관리하는 커넥션이 있으면 해당 커넥션을 반환한다.
         Connection con = DataSourceUtils.getConnection(dataSource);
         log.info("DataSourceUtils.getConnection = {}, class = {} ", con, con.getClass());
         return con;
