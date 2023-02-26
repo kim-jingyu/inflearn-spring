@@ -103,6 +103,27 @@ public class MemberRepositoryV3 {
         }
     }
 
+    public void delete(String memberId) throws SQLException {
+        String sql = "delete from member where member_id = ?";
+
+        Connection con = null;
+        PreparedStatement psmt = null;
+
+        try {
+            con = getConnection();
+
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, memberId);
+
+            psmt.executeUpdate();
+        } catch (SQLException e) {
+            log.error("DB error!!", e);
+            throw e;
+        } finally {
+            close(con, psmt, null);
+        }
+    }
+
     private void close(Connection con, PreparedStatement psmt, ResultSet rs) throws SQLException {
         // JdbcUtils 를 사용하면 커넥션을 좀 더 편리하게 닫을 수 있다.
         JdbcUtils.closeResultSet(rs);
