@@ -1,9 +1,13 @@
 package hello.jdbc.exception.basic;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.net.ConnectException;
 import java.sql.SQLException;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * 체크 예외의 문제점
@@ -42,5 +46,12 @@ public class CheckedAppTest {
         public void request() throws SQLException, ConnectException {
             service.logic();
         }
+    }
+
+    @Test
+    void checked() {
+        Controller controller = new Controller();
+        assertThatThrownBy(() -> controller.request())
+                .isInstanceOf(Exception.class);
     }
 }
