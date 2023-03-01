@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class MemberRepositoryV3 {
+public class MemberRepositoryV3 implements MemberRepositoryEx{
     private final DataSource dataSource;
 
     public Member save(Member member) throws SQLException {
