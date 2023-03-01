@@ -37,7 +37,7 @@ public class MemberRepositoryV4_2 implements MemberRepository {
             psmt.setString(1, member.getMemberID());
             psmt.setInt(2, member.getMoney());
 
-            psmt.executeQuery();
+            psmt.executeUpdate();
             return member;
         } catch (SQLException e) {
             throw exceptionTranslator.translate("save task", sql, e);
