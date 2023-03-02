@@ -4,6 +4,7 @@ import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.repository.memory.MemoryItemRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -21,72 +23,64 @@ class ItemRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        //MemoryItemRepository 의 경우 제한적으로 사용
         if (itemRepository instanceof MemoryItemRepository) {
-            ((MemoryItemRepository) itemRepository).clearStore();
+            ((MemoryItemRepository)itemRepository).clearStore();
         }
     }
 
     @Test
     void save() {
-        //given
-        Item item = new Item("itemA", 10000, 10);
+        Item itemA = new Item("itemA", 10000, 10);
 
-        //when
-        Item savedItem = itemRepository.save(item);
+        Item savedItem = itemRepository.save(itemA);
+        Item foundItem = null;
 
-        //then
-        Item findItem = itemRepository.findById(item.getId()).get();
-        assertThat(findItem).isEqualTo(savedItem);
+        if (itemRepository.findById(itemA.getId()).isPresent()){
+            foundItem = itemRepository.findById(itemA.getId()).get();
+        }
+        assertThat(foundItem).isEqualTo(savedItem);
     }
 
     @Test
     void updateItem() {
-        //given
-        Item item = new Item("item1", 10000, 10);
-        Item savedItem = itemRepository.save(item);
-        Long itemId = savedItem.getId();
+        Item itemA = new Item("itemA", 10000, 10);
+        Item savedItem = itemRepository.save(itemA);
+        Long savedItemId = savedItem.getId();
 
-        //when
-        ItemUpdateDto updateParam = new ItemUpdateDto("item2", 20000, 30);
-        itemRepository.update(itemId, updateParam);
+        ItemUpdateDto updateParam = new ItemUpdateDto("itemB", 4800, 68);
+        itemRepository.update(savedItemId, updateParam);
 
-        //then
-        Item findItem = itemRepository.findById(itemId).get();
-        assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
-        assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
-        assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());
+        Item foundItem = itemRepository.findById(savedItemId).get();
+        assertThat(foundItem.getItemName()).isEqualTo(updateParam.getItemName());
+        assertThat(foundItem.getPrice()).isEqualTo(updateParam.getPrice());
+        assertThat(foundItem.getQuantity()).isEqualTo(updateParam.getQuantity());
     }
 
     @Test
     void findItems() {
-        //given
-        Item item1 = new Item("itemA-1", 10000, 10);
-        Item item2 = new Item("itemA-2", 20000, 20);
-        Item item3 = new Item("itemB-1", 30000, 30);
+        Item itemA = new Item("itemA-1", 1000, 10);
+        Item itemA2 = new Item("itemA-2", 2000, 20);
+        Item itemC = new Item("itemC", 3000, 30);
 
-        itemRepository.save(item1);
-        itemRepository.save(item2);
-        itemRepository.save(item3);
+        itemRepository.save(itemA);
+        itemRepository.save(itemA2);
+        itemRepository.save(itemC);
 
-        //둘 다 없음 검증
-        test(null, null, item1, item2, item3);
-        test("", null, item1, item2, item3);
+        test(null, null, itemA, itemA2, itemC);
+        test("", null, itemA, itemA2, itemC);
 
-        //itemName 검증
-        test("itemA", null, item1, item2);
-        test("temA", null, item1, item2);
-        test("itemB", null, item3);
+        test("itemA", null, itemA, itemA2);
+        test("-2", null, itemA2);
 
-        //maxPrice 검증
-        test(null, 10000, item1);
+        test(null, 1500, itemA);
 
-        //둘 다 있음 검증
-        test("itemA", 10000, item1);
+        test("itemA", 1500, itemA);
     }
 
-    void test(String itemName, Integer maxPrice, Item... items) {
+    private void test(String itemName, Integer maxPrice, Item... items) {
         List<Item> result = itemRepository.findAll(new ItemSearchCond(itemName, maxPrice));
         assertThat(result).containsExactly(items);
     }
+
+
 }
