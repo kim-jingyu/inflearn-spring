@@ -1,6 +1,6 @@
-package com.example.itemservicedbpractice.repository;
+package com.itemservice.repository;
 
-import com.example.itemservicedbpractice.domain.Item;
+import com.itemservice.domain.Item;
 
 import java.util.List;
 import java.util.Optional;

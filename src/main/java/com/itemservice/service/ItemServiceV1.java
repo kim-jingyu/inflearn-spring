@@ -1,9 +1,9 @@
-package com.example.itemservicedbpractice.service;
+package com.itemservice.service;
 
-import com.example.itemservicedbpractice.domain.Item;
-import com.example.itemservicedbpractice.repository.ItemRepository;
-import com.example.itemservicedbpractice.repository.ItemSearchCond;
-import com.example.itemservicedbpractice.repository.ItemUpdateDto;
+import com.itemservice.domain.Item;
+import com.itemservice.repository.ItemRepository;
+import com.itemservice.repository.ItemSearchCond;
+import com.itemservice.repository.ItemUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

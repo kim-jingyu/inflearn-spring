@@ -1,8 +1,8 @@
-package com.example.itemservicedbpractice.service;
+package com.itemservice.service;
 
-import com.example.itemservicedbpractice.domain.Item;
-import com.example.itemservicedbpractice.repository.ItemSearchCond;
-import com.example.itemservicedbpractice.repository.ItemUpdateDto;
+import com.itemservice.domain.Item;
+import com.itemservice.repository.ItemSearchCond;
+import com.itemservice.repository.ItemUpdateDto;
 
 import java.util.List;
 import java.util.Optional;

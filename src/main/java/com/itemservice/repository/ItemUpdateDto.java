@@ -1,4 +1,4 @@
-package com.example.itemservicedbpractice.repository;
+package com.itemservice.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

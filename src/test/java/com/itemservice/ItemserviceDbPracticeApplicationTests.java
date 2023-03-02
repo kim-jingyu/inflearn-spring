@@ -1,4 +1,4 @@
-package com.example.itemservicedbpractice;
+package com.itemservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

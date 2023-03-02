@@ -1,4 +1,4 @@
-package com.example.itemservicedbpractice.web;
+package com.itemservice.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
