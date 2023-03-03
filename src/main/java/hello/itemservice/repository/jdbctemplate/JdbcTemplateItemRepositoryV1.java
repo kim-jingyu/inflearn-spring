@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Repository
+//@Repository
 public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
     private final JdbcTemplate template;
 
