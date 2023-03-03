@@ -30,7 +30,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String sql = "insert into item values(?,?,?)";
+        String sql = "insert into item (item_name, price, quantity) values(?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(connection -> {
             // id -> 자동 증가 키 지정
@@ -75,28 +75,26 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         //동적 쿼리
         if (StringUtils.hasText(itemName) || maxPrice != null) {
             sql += " where";
-
-            boolean andFlag = false;
-            List<Object> param = new ArrayList<>();
-            if (StringUtils.hasText(itemName)) {
-                sql += " item_name like concat('%',?,'%')";
-                param.add(itemName);
-                andFlag = true;
-            }
-
-            if (maxPrice != null) {
-                if (andFlag) {
-                    sql += " and";
-                }
-                sql += " price <= ?";
-                param.add(maxPrice);
-            }
-
-            log.info("SQL 문 = {}", sql);
-            return template.query(sql, itemRowMapper(), param.toArray());
         }
 
-        return null;
+        boolean andFlag = false;
+        List<Object> param = new ArrayList<>();
+        if (StringUtils.hasText(itemName)) {
+            sql += " item_name like concat('%',?,'%')";
+            param.add(itemName);
+            andFlag = true;
+        }
+
+        if (maxPrice != null) {
+            if (andFlag) {
+                sql += " and";
+            }
+            sql += " price <= ?";
+            param.add(maxPrice);
+        }
+
+        log.info("SQL 문 = {}", sql);
+        return template.query(sql, itemRowMapper(), param.toArray());
     }
 
     private RowMapper<Item> itemRowMapper() {
