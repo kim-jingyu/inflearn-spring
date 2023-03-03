@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
+//@Repository
 public class MemoryItemRepository implements ItemRepository {
 
     private static final Map<Long, Item> store = new HashMap<>(); //static
