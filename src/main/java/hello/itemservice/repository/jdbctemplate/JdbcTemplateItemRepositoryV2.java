@@ -45,6 +45,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
         long key = keyHolder.getKey().longValue();
         item.setId(key);
+        log.info("이름 지정 파라미터 SQL 문 = {}", sql);
         return item;
     }
 
@@ -57,6 +58,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
                 .addValue("price", updateParam.getPrice())
                 .addValue("quantity", updateParam.getQuantity())
                 .addValue("id", itemId);
+        log.info("이름 지정 파라미터 SQL 문 = {}", sql);
         template.update(sql, param);
     }
 
@@ -66,6 +68,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
         try {
             Map<String, Object> param = Map.of("id", id);
+            log.info("이름 지정 파라미터 SQL 문 = {}", sql);
             Item item = template.queryForObject(sql, param, itemRowMapper());
             return Optional.of(item);
         } catch (EmptyResultDataAccessException e) {
@@ -100,7 +103,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
             sql += " price <= :maxPrice";
         }
 
-        log.info("SQL 문 = {}", sql);
+        log.info("이름 지정 파라미터 SQL 문 = {}", sql);
         return template.query(sql, param, itemRowMapper());
     }
 
