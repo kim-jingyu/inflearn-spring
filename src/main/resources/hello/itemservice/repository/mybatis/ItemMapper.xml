@@ -9,7 +9,7 @@
         update item set item_name=#{updateParam.itemName}, price=#{updateParam.price}, quantity=#{updateParam.quantity} where id = #{id}
     </update>
 
-    <select id="findByID" resultType="Item">
+    <select id="findById" resultType="Item">
         select * from item where id = #{id}
     </select>
 
