@@ -27,7 +27,7 @@ import java.util.Optional;
  * NamedParameterJdbcTemplate
  */
 @Slf4j
-@Repository
+//@Repository
 public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
     private final NamedParameterJdbcTemplate template;
 
