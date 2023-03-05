@@ -15,7 +15,7 @@ import java.util.Optional;
  * MyBatisItemRepository 는 단순히 ItemMapper 에 기능을 위임
  */
 @Slf4j
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class MyBatisItemRepository implements ItemRepository {
     private final ItemMapper itemMapper;
