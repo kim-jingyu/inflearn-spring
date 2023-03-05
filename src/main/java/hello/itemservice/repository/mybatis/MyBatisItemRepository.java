@@ -22,6 +22,7 @@ public class MyBatisItemRepository implements ItemRepository {
     @Override
     public Item save(Item item) {
         log.info("MyBatis save 메서드 동작! = {}", item);
+        log.info("itemMapper class = {}", itemMapper.getClass()); // 동적 프록시 기술 적용 확인
         itemMapper.save(item);
         return item;
     }
