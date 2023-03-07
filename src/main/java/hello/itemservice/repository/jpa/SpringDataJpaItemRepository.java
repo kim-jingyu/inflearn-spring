@@ -23,7 +23,7 @@ public interface SpringDataJpaItemRepository extends JpaRepository<Item, Long> {
      * 이름 조건만 검색했을 때 사용하는 쿼리 메서드
      * select i from Item i where i.name like ?
      */
-    List<Item> findByItemNameLIke(String itemName);
+    List<Item> findByItemNameLike(String itemName);
 
     /**
      * 가격 조건만 검색했을 떄 사용하는 쿼리 메서드
