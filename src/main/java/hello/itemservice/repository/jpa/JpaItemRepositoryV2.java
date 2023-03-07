@@ -12,7 +12,10 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+/**
+ * 스프링 데이터 JPA 적용
+ */
+//@Repository
 @Transactional
 @RequiredArgsConstructor
 public class JpaItemRepositoryV2 implements ItemRepository {
