@@ -1,4 +1,4 @@
-# 스프링 MVC 1편
+# 스프링 MVC 1
 
 ## 🚀 서블릿, JSP, MVC 패턴
 - #### [서블릿으로 회원 관리 웹 애플리케이션 만들기](https://github.com/jingyu9804/servlet/tree/main/src/main/java/hello/servlet/web/servlet)
