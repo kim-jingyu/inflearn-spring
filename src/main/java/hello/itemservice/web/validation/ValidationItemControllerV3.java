@@ -17,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+/**
+ * Bean Validation 적용
+ */
 @Controller
 @RequestMapping("/validation/v3/items")
 @RequiredArgsConstructor
@@ -47,7 +50,9 @@ public class ValidationItemControllerV3 {
 
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        // Object Error
+        // Field Error - 필드 예외는 Bean Validation 이용
+
+        // Object Error - 특정 필드 예외가 아닌 전체 예외는 직접 자바 코드 작성
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
