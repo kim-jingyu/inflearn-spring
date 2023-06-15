@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript</title>
+</head>
+<body>
+
+<!--/*/ 자바스크립트 인라인 사용 전 /*/-->
+
+<script>
+  let username1 = [[${user.username}]]; // Uncaught ReferenceError: userA is not defined
+  let age1 = [[${user.age}]];
+
+  console.log(username1);
+
+  // 자바스크립트 내추럴 템플릿
+  let username2 = /*[[${user.username}]]*/ "test username";
+
+  // 객체
+  let userObject1 = [[${user}]];
+</script>
+
+<!--/*/ 자바스크립트 인라인 사용 후 /*/-->
+
+<script th:inline="javascript">
+  let username3 = [[${user.username}]];
+  let age2 = [[${user.age}]];
+
+  console.log(username3);
+
+  // 자바스크립트 내추럴 템플릿
+  let username4 = /*[[${user.username}]]*/ "test username";
+
+  // 객체
+  let userObject2 = [[${user}]];
+
+  // 자바스크립트 인라인 each
+  [# th:each="user : ${users}"]
+  let user[[${userStat.count}]] = [[${user}]];
+  [/]
+</script>
+
+</body>
+</html>

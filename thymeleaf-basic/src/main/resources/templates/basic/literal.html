@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Literal</title>
+</head>
+<body>
+
+<h1>Literals</h1>
+<ul>
+  <li><span th:text="'hello' + ' Spring~~'"></span></li>
+  <li><span th:text="'hello Spring!'"></span></li>
+  <li><span th:text="'hello ' + ${data}"></span></li>
+  <li>리터럴 대체(Literal substitutions)<span th:text="|hello ${data}|"></span></li>
+</ul>
+
+</body>
+</html>
