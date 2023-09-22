@@ -1,4 +1,4 @@
-package hello.advanced;
+package hello.advanced.ch0_1_2.config;
 
 import hello.advanced.ch0_1_2.trace.logtrace.LogTrace;
 import hello.advanced.ch0_1_2.trace.logtrace.ThreadLocalLogTrace;
