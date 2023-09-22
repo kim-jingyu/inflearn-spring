@@ -1,25 +1,25 @@
 package hello.advanced.app;
 
-import hello.advanced.trace.TraceStatus;
+import hello.advanced.trace.callback.TraceCallback;
+import hello.advanced.trace.callback.TraceTemplate;
 import hello.advanced.trace.logtrace.LogTrace;
 import hello.advanced.trace.template.AbstractTemplate;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final LogTrace trace;
+    private final TraceTemplate template;
+
+    public OrderService(OrderRepository orderRepository, LogTrace trace) {
+        this.orderRepository = orderRepository;
+        this.template = new TraceTemplate(trace);
+    }
 
     public void orderItem(String itemId) {
-        AbstractTemplate<Void> template = new AbstractTemplate<>(trace) {
-            @Override
-            protected Void call() {
-                orderRepository.save(itemId);
-                return null;
-            }
-        };
-        template.execute("OrderService.orderItem()");
+        template.execute("OrderService.orderItem()", () -> {
+            orderRepository.save(itemId);
+            return null;
+        });
     }
 }
