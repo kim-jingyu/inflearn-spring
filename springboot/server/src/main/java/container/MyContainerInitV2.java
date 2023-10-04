@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 @HandlesTypes(AppInit.class)
-public class MyContainerInitV2 implements ServletContainerInitializer {
+public class  MyContainerInitV2 implements ServletContainerInitializer {
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         System.out.println("MyContainerInitV2.onStartup");
