@@ -10,10 +10,30 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // 스프링 MVC 추가
+    implementation 'org.springframework:spring-webmvc:6.0.11'
+
+    // 내장 톰캣 추가
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.11'
 }
 
 test {
     useJUnitPlatform()
+}
+
+//일반 Jar 생성
+task buildJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'hello.embed.EmbedTomcatSpringMain'
+    }
+    with jar }
+//Fat Jar 생성
+task buildFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'hello.embed.EmbedTomcatSpringMain'
+    }
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it :
+            zipTree(it) } }
+    with jar
 }
