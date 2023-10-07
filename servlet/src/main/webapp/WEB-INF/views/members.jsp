@@ -9,15 +9,15 @@
 <table>
     <thead>
     <th>id</th>
-    <th>username</th>
+    <th>name</th>
     <th>age</th>
     </thead>
     <tbody>
-    <c:forEach var="item" items="${members}">
+    <c:forEach var="member" items="${members}">
         <tr>
-            <td>${item.id}</td>
-            <td>${item.username}</td>
-            <td>${item.age}</td>
+            <td>${member.id}</td>
+            <td>${member.name}</td>
+            <td>${member.age}</td>
         </tr>
     </c:forEach>
     </tbody>
