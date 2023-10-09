@@ -3,6 +3,7 @@ package hello.springmvc.basic.request;
 import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -122,7 +123,7 @@ public class RequestParamController {
     @ResponseBody
     @RequestMapping("/request-param-map")
     public String requestParamMap(
-            @RequestParam Map<String, Object> paramMap) {
+            @RequestParam MultiValueMap<String, Object> paramMap) {
 
         log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
 
