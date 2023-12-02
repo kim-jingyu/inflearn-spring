@@ -102,8 +102,8 @@ public class MemberRepositoryV0 {
         try {
             conn = DBConnectionUtil.getConnection();
             psmt = conn.prepareStatement(sql);
-            psmt.setInt(1, 30000);
-            psmt.setString(2, "memberV0");
+            psmt.setInt(1, money);
+            psmt.setString(2, memberId);
             int resultSize = psmt.executeUpdate();
             log.info("resultSize = {}", resultSize);
         } catch (SQLException e) {
