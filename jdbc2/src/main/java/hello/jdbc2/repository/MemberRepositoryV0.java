@@ -92,4 +92,25 @@ public class MemberRepositoryV0 {
             close(conn, psmt, rs);
         }
     }
+
+    public void update(String memberId, int money) throws SQLException {
+        String sql = "update member set money=? where member_id=?";
+
+        Connection conn = null;
+        PreparedStatement psmt = null;
+
+        try {
+            conn = DBConnectionUtil.getConnection();
+            psmt = conn.prepareStatement(sql);
+            psmt.setInt(1, 30000);
+            psmt.setString(2, "memberV0");
+            int resultSize = psmt.executeUpdate();
+            log.info("resultSize = {}", resultSize);
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(conn, psmt, null);
+        }
+    }
 }

@@ -26,4 +26,13 @@ class MemberRepositoryV0Test {
         log.info("findMember = {}", findMember);
         assertThat(findMember.getMemberId()).isEqualTo("memberV0");
     }
+
+    @Test
+    void updateMember() throws SQLException {
+        // memberV0 : money 10000 -> 30000
+        repository.update("memberV0", 30000);
+
+        Member findMember = repository.findById("memberV0");
+        assertThat(findMember.getMoney()).isEqualTo(30000);
+    }
 }
