@@ -13,11 +13,12 @@ public class  MyContainerInitV2 implements ServletContainerInitializer {
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         System.out.println("MyContainerInitV2.onStartup");
+        System.out.println("c = " + c);
 
         // class container.AppInitV1Servlet
-        System.out.println("c = " + c);
         for (Class<?> appInitClass : c) {
             try {
+                // new AppInitV1Servlet()과 같은 코드
                 AppInit appInit = (AppInit) appInitClass.getDeclaredConstructor().newInstance();
                 appInit.onStartUp(ctx);
             } catch (Exception e) {
