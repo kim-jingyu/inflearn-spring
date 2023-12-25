@@ -18,18 +18,17 @@ public class EmbedTomcatSpringMain {
         connector.setPort(8080);
         tomcat.setConnector(connector);
 
-        // 스프링 컨테이너 설정
-        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
-        applicationContext.register(HelloConfig.class);
+        // 스프링 컨테이너 생성
+        AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
+        appContext.register(HelloConfig.class);
 
-        // 스프링 MVC 디스패처 서블릿 생성, 스프링 컨테이너 연결
-        DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
+        // 스프링 MVC 디스패처 서블릿 생성 후 스프링 컨테이너와 연결
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(appContext);
 
         // 디스패처 서블릿 등록
         Context context = tomcat.addContext("", "/");
         tomcat.addServlet("", "dispatcher", dispatcherServlet);
         context.addServletMappingDecoded("/", "dispatcher");
-
         tomcat.start();
     }
 }
