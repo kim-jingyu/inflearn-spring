@@ -1,10 +1,12 @@
-import boot.MySpringApplication;
-import boot.MySpringBootApplication;
+package hello;
+
+import hello.boot.MySpringApplication;
+import hello.boot.MySpringBootApplication;
 
 @MySpringBootApplication
 public class MySpringBootMain {
     public static void main(String[] args) {
-        System.out.println("MySpringBootMain.main");
+        System.out.println("hello.MySpringBootMain.main");
         MySpringApplication.run(MySpringBootMain.class, args);
     }
 }

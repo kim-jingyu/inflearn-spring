@@ -1,4 +1,4 @@
-package boot;
+package hello.boot;
 
 import org.springframework.context.annotation.ComponentScan;
 

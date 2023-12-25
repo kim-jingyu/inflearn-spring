@@ -1,4 +1,4 @@
-package boot;
+package hello.boot;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
