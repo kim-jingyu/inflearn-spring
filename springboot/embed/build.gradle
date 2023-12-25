@@ -24,16 +24,17 @@ test {
 //일반 Jar 생성
 task buildJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'hello.embed.EmbedTomcatSpringMain'
+        attributes 'Main-Class': 'embed.EmbedTomcatSpringMain'
     }
-    with jar }
+    with jar
+}
+
 //Fat Jar 생성
 task buildFatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'hello.embed.EmbedTomcatSpringMain'
+        attributes 'Main-Class': 'embed.EmbedTomcatSpringMain'
     }
     duplicatesStrategy = DuplicatesStrategy.WARN
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it :
-            zipTree(it) } }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
