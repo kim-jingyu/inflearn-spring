@@ -5,19 +5,19 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class MemberRepositoryV0Test {
     MemberRepositoryV0 repository = new MemberRepositoryV0();
 
     @Test
-    void save() throws SQLException {
-        // given
+    void crud() throws SQLException {
+        // save
         Member member = new Member("1", 10000);
-
-        // when
         repository.save(member);
 
-        // then
+        // findById
+        Member findMember = repository.findById(member.getId());
+        assertThat(findMember).isEqualTo(member);
     }
 }

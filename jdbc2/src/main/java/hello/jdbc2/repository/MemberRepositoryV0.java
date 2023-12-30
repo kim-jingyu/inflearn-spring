@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 import static hello.jdbc2.connection.DBConnectionUtil.*;
 
@@ -31,6 +32,34 @@ public class MemberRepositoryV0 {
             return member;
         } catch (SQLException e) {
             log.error("회원 저장 중 에러 발생!", e);
+            throw e;
+        } finally {
+            close(connection, ps, null);
+        }
+    }
+
+    public Member findById(String id) throws SQLException {
+        String sql = "select * from member where id = ?";
+
+        Connection connection = null;
+        PreparedStatement ps = null;
+
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Member member = new Member();
+                member.setId(rs.getString("id"));
+                member.setMoney(rs.getInt("money"));
+                return member;
+            } else {
+                throw new NoSuchElementException(id + "회원 검색 결과 없음!");
+            }
+
+        } catch (SQLException e) {
+            log.error("회원 조회 중 에러 발생!", e);
             throw e;
         } finally {
             close(connection, ps, null);
